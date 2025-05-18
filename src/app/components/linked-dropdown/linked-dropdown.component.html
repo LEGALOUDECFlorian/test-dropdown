@@ -1,0 +1,38 @@
+<p>linked-dropdown works!</p>
+<div class="linked-dropdown-container">
+  <!-- Premier dropdown (Catégories) -->
+  <div class="dropdown-wrapper" #categoryDropdown>
+    <button class="dropdown-button" (click)="toggleCategoryDropdown()">
+      {{ categoryLabel() }}
+      <span class="dropdown-arrow" [class.open]="isOpenCategory()">▼</span>
+    </button>
+    
+    @if (isOpenCategory()) {
+      <div class="dropdown-menu">
+        @for (category of categories(); track category.id) {
+          <div class="dropdown-item" (click)="selectCategory(category)">
+            {{ category.label }}
+          </div>
+        }
+      </div>
+    }
+  </div>
+
+  <!-- Second dropdown (Sous-catégories) -->
+  <div class="dropdown-wrapper" #subcategoryDropdown>
+    <button class="dropdown-button" [class.disabled]="!selection().category" (click)="toggleSubcategoryDropdown()">
+      {{ subcategoryLabel() }}
+      <span class="dropdown-arrow" [class.open]="isOpenSubcategory()">▼</span>
+    </button>
+    
+    @if (isOpenSubcategory()) {
+      <div class="dropdown-menu">
+        @for (subcategory of subcategories(); track subcategory.id) {
+          <div class="dropdown-item" (click)="selectSubcategory(subcategory)">
+            {{ subcategory.label }}
+          </div>
+        }
+      </div>
+    }
+  </div>
+</div>
